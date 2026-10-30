@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eval run report</title>
+<style>
+body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+       margin: 2rem auto; max-width: 64rem; padding: 0 1rem; color: #1a1a1a; line-height: 1.45; }
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.2rem; margin-top: 2rem; border-bottom: 1px solid #ddd; padding-bottom: .3rem; }
+table { border-collapse: collapse; width: 100%; margin: .75rem 0; font-size: .9rem; }
+th, td { border: 1px solid #ccc; padding: .35rem .5rem; text-align: left; vertical-align: top; }
+th { background: #f4f4f4; }
+.meta td:first-child { font-weight: 600; width: 14rem; }
+.pass { color: #1a7f37; font-weight: 600; }
+.fail { color: #cf222e; font-weight: 600; }
+.skip, .na { color: #6e7781; }
+pre { white-space: pre-wrap; word-wrap: break-word; background: #f6f8fa;
+     padding: .6rem; border-radius: 6px; }
+.failure { margin: 1rem 0; padding: .75rem 1rem; border: 1px solid #e5534b33;
+          border-left: 4px solid #cf222e; border-radius: 4px; }
+.failure h3 { margin: 0 0 .5rem; font-size: 1rem; }
+.label { font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Eval run report</h1>
+<table class="meta">
+<tr><td>Model</td><td>google/gemma-3-1b-it</td></tr>
+<tr><td>Judge</td><td>Qwen/Qwen3.8-27B-FP8 (threshold 4)</td></tr>
+<tr><td>Retrieval</td><td>on (k=1)</td></tr>
+<tr><td>Dataset</td><td>datasets/rag_eval.jsonl (sha256 3656204dc5a891de84efa0db8cdf13435279befa573cf61e3af40b94060354ab)</td></tr>
+<tr><td>Started / ended (UTC)</td><td>2026-10-23T19:35:27.398361+00:00 / 2026-10-23T19:36:08.485579+00:00</td></tr>
+</table>
+
+<h2>Summary</h2>
+<table>
+<tr><th>Metric</th><th>Value</th></tr>
+
+<tr><td>Cases</td><td>25/48</td></tr>
+
+<tr><td>Overall pass rate</td><td>52.1%</td></tr>
+
+<tr><td>Pass rate (exact)</td><td>17/30 = 56.7%</td></tr>
+
+<tr><td>Pass rate (judge)</td><td>25/48 = 52.1%</td></tr>
+
+<tr><td>Pass rate (retrieval)</td><td>36/42 = 85.7%</td></tr>
+
+<tr><td>Pass rate (quote)</td><td>20/48 = 41.7%</td></tr>
+
+<tr><td>Quote compliance (answered questions only)</td><td>9/34 = 26.5%</td></tr>
+
+<tr><td>Pass rate (tag: access)</td><td>2/2 = 100.0%</td></tr>
+
+<tr><td>Pass rate (tag: architecture)</td><td>3/3 = 100.0%</td></tr>
+
+<tr><td>Pass rate (tag: deploy)</td><td>3/4 = 75.0%</td></tr>
+
+<tr><td>Pass rate (tag: expenses)</td><td>0/2 = 0.0%</td></tr>
+
+<tr><td>Pass rate (tag: incident)</td><td>2/4 = 50.0%</td></tr>
+
+<tr><td>Pass rate (tag: multi-doc)</td><td>0/4 = 0.0%</td></tr>
+
+<tr><td>Pass rate (tag: near-miss)</td><td>2/3 = 66.7%</td></tr>
+
+<tr><td>Pass rate (tag: numeric)</td><td>10/17 = 58.8%</td></tr>
+
+<tr><td>Pass rate (tag: oncall)</td><td>1/3 = 33.3%</td></tr>
+
+<tr><td>Pass rate (tag: paraphrase)</td><td>1/4 = 25.0%</td></tr>
+
+<tr><td>Pass rate (tag: product)</td><td>2/3 = 66.7%</td></tr>
+
+<tr><td>Pass rate (tag: pto)</td><td>1/2 = 50.0%</td></tr>
+
+<tr><td>Pass rate (tag: reasoning)</td><td>0/3 = 0.0%</td></tr>
+
+<tr><td>Pass rate (tag: retention)</td><td>2/4 = 50.0%</td></tr>
+
+<tr><td>Pass rate (tag: runbook)</td><td>3/9 = 33.3%</td></tr>
+
+<tr><td>Pass rate (tag: support)</td><td>1/2 = 50.0%</td></tr>
+
+<tr><td>Pass rate (tag: unanswerable)</td><td>5/6 = 83.3%</td></tr>
+
+<tr><td>Mean judge score</td><td>3.21</td></tr>
+
+<tr><td>Hallucination rate (unanswerable, judge score &lt;= 2)</td><td>1/6 = 16.7%</td></tr>
+
+<tr><td>Retrieval hit@1</td><td>85.7%</td></tr>
+
+<tr><td>Retrieval recall@1</td><td>81.0%</td></tr>
+
+<tr><td>Latency p50</td><td>136 ms</td></tr>
+
+<tr><td>Latency p95</td><td>262 ms</td></tr>
+
+<tr><td>Total tokens</td><td>14125 (prompt 12268, completion 1857)</td></tr>
+
+<tr><td>Total cost</td><td>$0.0000</td></tr>
+
+<tr><td>Errors</td><td>0</td></tr>
+
+</table>
+
+<h2>Per-question results</h2>
+<table>
+<tr><th>id</th><th>result</th><th>exact</th><th>judge</th><th>retrieval</th><th>quote</th>
+<th>judge score</th><th>judge reason</th><th>latency (ms)</th><th>cost (USD)</th></tr>
+
+<tr>
+<td>q01</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>5</td>
+<td>The model response correctly states the frequency (every 90 seconds) and the network (LTE-M), fully matching the reference answer.</td>
+<td>198</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q02</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>5</td>
+<td>The model correctly states the battery life is about 14 months, matching the reference answer.</td>
+<td>169</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q03</td>
+<td class="fail">fail</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>3</td>
+<td>The response correctly identifies the 3 consecutive readings rule but fails to calculate the actual time duration (3 minutes) requested by the question, missing the key quantitative answer.</td>
+<td>203</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q04</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>4</td>
+<td>The response correctly identifies the day and time of the handoff but omits the specific detail about the 15-minute handoff call mentioned in the reference.</td>
+<td>133</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q05</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>1</td>
+<td>The model failed to provide the correct answer ($340) and incorrectly stated that the information was not available.</td>
+<td>36</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q06</td>
+<td class="fail">fail</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>2</td>
+<td>The response incorrectly states that the engineering manager is paged directly, omitting the secondary on-call step and the specific time intervals defined in the reference.</td>
+<td>186</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q07</td>
+<td class="fail">fail</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>1</td>
+<td>The model failed to provide the answer contained in the reference, claiming the context was insufficient.</td>
+<td>35</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q08</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>5</td>
+<td>The model response accurately states the 20-minute initial update and 30-minute subsequent updates, matching the reference answer exactly.</td>
+<td>234</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q09</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>4</td>
+<td>The response correctly states the 3 business day deadline for the draft but omits the additional detail about the review meeting being within 7 business days.</td>
+<td>114</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q10</td>
+<td class="fail">fail</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>2</td>
+<td>The model correctly answers &#39;No&#39; but fails to provide the specific reasoning required by the reference answer (that the IC comes from a rotation and cannot be the debugger), instead claiming the context is insufficient.</td>
+<td>89</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q11</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>1</td>
+<td>The response describes how to start a deploy but fails to provide the specific traffic progression percentages and durations required by the reference answer.</td>
+<td>153</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q12</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>5</td>
+<td>The response accurately captures both conditions (error rate &gt; 0.8% and p95 latency increase &gt;= 30%) specified in the reference answer.</td>
+<td>155</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q13</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>5</td>
+<td>The model response correctly identifies both required approvers as stated in the reference answer.</td>
+<td>185</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q14</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>5</td>
+<td>The model correctly identifies the timing as the last 5 business days of each quarter, matching the reference answer.</td>
+<td>177</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q15</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>4</td>
+<td>The response correctly identifies the number of partitions (96) but omits the detail about the keying strategy (keyed by tag ID) mentioned in the reference answer.</td>
+<td>123</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q16</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>4</td>
+<td>The model correctly identifies the service name but omits the specific details about reading from &#39;readings.clean&#39; and handing off to &#39;alert-relay&#39;.</td>
+<td>43</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q17</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>4</td>
+<td>The response correctly identifies the RPO and RTO values but omits the location of the disaster-recovery replica mentioned in the reference answer.</td>
+<td>122</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q18</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>4</td>
+<td>The response correctly identifies the 30-day duration but omits the specific detail about moving to Parquet files in object storage.</td>
+<td>129</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q19</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>5</td>
+<td>The model response accurately reflects all conditions and thresholds specified in the reference answer.</td>
+<td>338</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q20</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td>1</td>
+<td>The model failed to provide the specific criteria found in the reference answer, claiming the information was missing.</td>
+<td>42</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q21</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>5</td>
+<td>The response correctly identifies the maximum number of replicas as 48 and accurately explains the reason for the limit, matching the reference answer in substance.</td>
+<td>262</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q22</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>4</td>
+<td>The response correctly answers &#39;No&#39; and cites the relevant policy against resetting offsets, but it omits the specific consequence (SEV1) mentioned in the reference answer.</td>
+<td>94</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q23</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>3</td>
+<td>The response correctly identifies the cause (chatty tag on firmware 3.2.x) but completely omits the required remediation steps (quarantine command and notifying the Firmware team).</td>
+<td>223</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q24</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td>1</td>
+<td>The model failed to provide the correct answer (72 hours) and instead claimed the information was not in the context.</td>
+<td>45</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q25</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td>2</td>
+<td>The response mentions the existence of two carriers but fails to name them, which is the core information requested by the question.</td>
+<td>158</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q26</td>
+<td class="fail">fail</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>3</td>
+<td>The response correctly identifies the condition for the alert but omits the specific time duration (&#39;about 6 minutes&#39;) mentioned in the reference answer.</td>
+<td>244</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q27</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>2</td>
+<td>The model explicitly states that the context does not contain the answer, which contradicts the reference answer that provides a specific cause and action.</td>
+<td>152</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q28</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td>1</td>
+<td>The response fails to provide the specific duration (7 years) requested and instead offers a generic statement about the policy&#39;s existence.</td>
+<td>132</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q29</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>3</td>
+<td>The response correctly states the 35-day retention period but omits the important detail about point-in-time recovery for the last 7 days.</td>
+<td>144</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q30</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>4</td>
+<td>The response correctly identifies the General Counsel as the person who can place or lift a legal hold, but it omits the exclusivity (&#39;Only&#39;) emphasized in the reference answer.</td>
+<td>81</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q31</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>4</td>
+<td>The response correctly identifies the 8-hour limit but omits the additional requirement for a second approver mentioned in the reference answer.</td>
+<td>102</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q32</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>4</td>
+<td>The response correctly identifies the three main consequences (paging, logging, reporting) but omits the specific usage constraint regarding SEV1s and JIT access failure mentioned in the reference.</td>
+<td>293</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q33</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>1</td>
+<td>The response discusses a specific local exception for Duluth employees and fails to provide the requested international travel per diem amount.</td>
+<td>148</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q34</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td>1</td>
+<td>The model failed to provide the correct answer and incorrectly stated that the context did not contain the information.</td>
+<td>38</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q35</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>5</td>
+<td>The model correctly identifies Thaw Day as a company-wide holiday on the first Friday of March, matching the reference answer exactly.</td>
+<td>125</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q36</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td>1</td>
+<td>The response provides a vague reference to a policy instead of the specific actions (arranging a swap and recording it in Klaxon) required by the reference answer.</td>
+<td>89</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q37</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>4</td>
+<td>The response correctly identifies the 30-minute SLA but omits the additional details about 24/7 coverage and the dedicated CSM mentioned in the reference.</td>
+<td>150</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q38</td>
+<td class="fail">fail</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>3</td>
+<td>The response correctly identifies the initial action (pulling readings and certificate) but omits the critical subsequent steps regarding the 12-month calibration cycle and the customer credit policy.</td>
+<td>183</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q39</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>1</td>
+<td>The model incorrectly identifies the approvers as the engineering manager and Head of Platform, whereas the reference states the incident commander can approve it alone.</td>
+<td>169</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q40</td>
+<td class="fail">fail</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>3</td>
+<td>The response correctly identifies the Platform team as the on-call rotation but omits the specific components covered (tagbroker, Kafka, databases, deploy pipeline) which are explicitly requested in the question.</td>
+<td>202</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q41</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="pass">pass</td>
+<td>2</td>
+<td>The response provides the correct threshold (72 hours) but fails to state the required severity (SEV1), which is the direct answer to the question.</td>
+<td>103</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q42</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="fail">fail</td>
+<td class="pass">pass</td>
+<td class="fail">fail</td>
+<td>1</td>
+<td>The response fails to provide the specific retention period (400 days) requested in the question and instead provides irrelevant information about reporting deadlines.</td>
+<td>223</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q43</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td>5</td>
+<td>The response correctly identifies that the documents do not contain the answer and does not invent any information.</td>
+<td>136</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q44</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td>5</td>
+<td>The response correctly identifies that the answer is not in the documents and does not invent any information.</td>
+<td>36</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q45</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td>5</td>
+<td>The response correctly identifies that the answer is not in the documents and does not invent any information.</td>
+<td>39</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q46</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td>5</td>
+<td>The response correctly identifies that the answer is not in the documents and does not invent any information.</td>
+<td>36</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q47</td>
+<td class="fail">fail</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td class="na">n/a</td>
+<td class="fail">fail</td>
+<td>1</td>
+<td>The model invents a confident answer by quoting specific technical details (reporting interval, temperature range) that are not in the provided documents and do not answer the question about battery replacement.</td>
+<td>188</td>
+<td>0.000000</td>
+</tr>
+
+<tr>
+<td>q48</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td class="na">n/a</td>
+<td class="pass">pass</td>
+<td>5</td>
+<td>The response correctly identifies that the answer is not in the documents and does not invent any information.</td>
+<td>36</td>
+<td>0.000000</td>
+</tr>
+
+</table>
+
+<h2>Failures</h2>
+
+
+<div class="failure">
+<h3>q03</h3>
+<p><span class="label">Question:</span> With default settings, roughly how long does a shipment&#39;s temperature have to stay out of range before Skerrow declares an excursion?</p>
+<p><span class="label">Response:</span></p>
+<pre>Skerrow declares an excursion after 3 consecutive out-of-range readings.
+Quote: “By default, Skerrow declares an excursion after 3 consecutive out-of-range readings.” [doc-id]</pre>
+<p><span class="label">Retrieved docs:</span> company-overview</p>
+<p><span class="label">Judge:</span> score 3 - The response correctly identifies the 3 consecutive readings rule but fails to calculate the actual time duration (3 minutes) requested by the question, missing the key quantitative answer.</p>
+<p><span class="label">Failed scorers:</span> judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q05</h3>
+<p><span class="label">Question:</span> How much is the weekly stipend for a primary on-call shift?</p>
+<p><span class="label">Response:</span></p>
+<pre>The context does not contain the answer.</pre>
+<p><span class="label">Retrieved docs:</span> oncall-policy</p>
+<p><span class="label">Judge:</span> score 1 - The model failed to provide the correct answer ($340) and incorrectly stated that the information was not available.</p>
+<p><span class="label">Failed scorers:</span> exact, judge</p>
+</div>
+
+<div class="failure">
+<h3>q06</h3>
+<p><span class="label">Question:</span> If the primary on-call doesn&#39;t acknowledge a SEV1 page, what happens?</p>
+<p><span class="label">Response:</span></p>
+<pre>If the primary doesn&#39;t acknowledge a SEV1 page, Klaxon pages the team&#39;s engineering manager.
+Quote: &#34;If the primary doesn&#39;t acknowledge a SEV1 or SEV2 page within its target, Klaxon pages the secondary.&#34;</pre>
+<p><span class="label">Retrieved docs:</span> oncall-policy</p>
+<p><span class="label">Judge:</span> score 2 - The response incorrectly states that the engineering manager is paged directly, omitting the secondary on-call step and the specific time intervals defined in the reference.</p>
+<p><span class="label">Failed scorers:</span> judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q07</h3>
+<p><span class="label">Question:</span> What makes an incident a SEV1?</p>
+<p><span class="label">Response:</span></p>
+<pre>The context does not contain the answer.</pre>
+<p><span class="label">Retrieved docs:</span> incident-severity</p>
+<p><span class="label">Judge:</span> score 1 - The model failed to provide the answer contained in the reference, claiming the context was insufficient.</p>
+<p><span class="label">Failed scorers:</span> judge</p>
+</div>
+
+<div class="failure">
+<h3>q10</h3>
+<p><span class="label">Question:</span> Can the engineer who is debugging a SEV1 also be its incident commander?</p>
+<p><span class="label">Response:</span></p>
+<pre>No, the provided context does not contain the answer.
+Quote: “The IC coordinates the response and handles communication.”</pre>
+<p><span class="label">Retrieved docs:</span> incident-severity</p>
+<p><span class="label">Judge:</span> score 2 - The model correctly answers &#39;No&#39; but fails to provide the specific reasoning required by the reference answer (that the IC comes from a rotation and cannot be the debugger), instead claiming the context is insufficient.</p>
+<p><span class="label">Failed scorers:</span> judge</p>
+</div>
+
+<div class="failure">
+<h3>q11</h3>
+<p><span class="label">Question:</span> How does a production canary progress?</p>
+<p><span class="label">Response:</span></p>
+<pre>Production deploys are started with `skr deploy &lt;service&gt;` and always go through a canary.
+Quote: &#34;&lt;Production deploys are started with `skr deploy &lt;service&gt;` and always go through a canary&gt;&#34;</pre>
+<p><span class="label">Retrieved docs:</span> deploy-process</p>
+<p><span class="label">Judge:</span> score 1 - The response describes how to start a deploy but fails to provide the specific traffic progression percentages and durations required by the reference answer.</p>
+<p><span class="label">Failed scorers:</span> exact, judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q20</h3>
+<p><span class="label">Question:</span> When should an ingest backlog be upgraded from SEV2 to SEV1?</p>
+<p><span class="label">Response:</span></p>
+<pre>The context does not contain the answer.</pre>
+<p><span class="label">Retrieved docs:</span> incident-severity</p>
+<p><span class="label">Judge:</span> score 1 - The model failed to provide the specific criteria found in the reference answer, claiming the information was missing.</p>
+<p><span class="label">Failed scorers:</span> exact, judge, retrieval</p>
+</div>
+
+<div class="failure">
+<h3>q23</h3>
+<p><span class="label">Question:</span> One Kafka partition is way behind and the rest look fine. What&#39;s probably going on and what should I do?</p>
+<p><span class="label">Response:</span></p>
+<pre>One partition is far behind the others, likely due to a “chatty tag”.
+Quote: “If one partition is far behind the others, the usual cause is a “chatty tag”: a tag on firmware 3.2.x that sends a reading every second instead of at the normal interval.”</pre>
+<p><span class="label">Retrieved docs:</span> runbook-ingest-backlog</p>
+<p><span class="label">Judge:</span> score 3 - The response correctly identifies the cause (chatty tag on firmware 3.2.x) but completely omits the required remediation steps (quarantine command and notifying the Firmware team).</p>
+<p><span class="label">Failed scorers:</span> exact, judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q24</h3>
+<p><span class="label">Question:</span> How many hours of readings can a tag hold while it has no connection?</p>
+<p><span class="label">Response:</span></p>
+<pre>The provided context does not contain the answer.</pre>
+<p><span class="label">Retrieved docs:</span> data-retention</p>
+<p><span class="label">Judge:</span> score 1 - The model failed to provide the correct answer (72 hours) and instead claimed the information was not in the context.</p>
+<p><span class="label">Failed scorers:</span> exact, judge, retrieval</p>
+</div>
+
+<div class="failure">
+<h3>q25</h3>
+<p><span class="label">Question:</span> Which cellular carriers do Skerrow Tags use?</p>
+<p><span class="label">Response:</span></p>
+<pre>Skerrow Tags send readings over LTE-M through one of two cellular carriers.
+Quote: “Skerrow Tags send readings over LTE-M through one of two cellular carriers.” [architecture-overview]</pre>
+<p><span class="label">Retrieved docs:</span> architecture-overview</p>
+<p><span class="label">Judge:</span> score 2 - The response mentions the existence of two carriers but fails to name them, which is the core information requested by the question.</p>
+<p><span class="label">Failed scorers:</span> exact, judge, retrieval</p>
+</div>
+
+<div class="failure">
+<h3>q26</h3>
+<p><span class="label">Question:</span> When does the TagsOfflineSpike alert fire?</p>
+<p><span class="label">Response:</span></p>
+<pre>The Alerts fires when more than 3% of active tags in a single carrier region miss 4 consecutive check-ins. [runbook-tag-offline]
+Quote: &#34;If the context contains the answer, reply with the answer in one or two sentences, then on the next line a supporting quote in exactly this form: &lt;sentence&gt;&#34;</pre>
+<p><span class="label">Retrieved docs:</span> runbook-tag-offline</p>
+<p><span class="label">Judge:</span> score 3 - The response correctly identifies the condition for the alert but omits the specific time duration (&#39;about 6 minutes&#39;) mentioned in the reference answer.</p>
+<p><span class="label">Failed scorers:</span> judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q27</h3>
+<p><span class="label">Question:</span> Tags on both carriers are going offline at the same time. What&#39;s the likely cause?</p>
+<p><span class="label">Response:</span></p>
+<pre>The provided context does not contain the answer.
+Quote: &#34;If tags on both carriers are dropping, the problem is probably tagbroker rather than the carriers.&#34; [runbook-tag-offline]</pre>
+<p><span class="label">Retrieved docs:</span> runbook-tag-offline</p>
+<p><span class="label">Judge:</span> score 2 - The model explicitly states that the context does not contain the answer, which contradicts the reference answer that provides a specific cause and action.</p>
+<p><span class="label">Failed scorers:</span> judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q28</h3>
+<p><span class="label">Question:</span> How long are raw readings kept for customers on the Sovereign plan?</p>
+<p><span class="label">Response:</span></p>
+<pre>The Data Retention Policy says how long each kind of data is kept.
+Quote: “The Data Retention Policy says how long each kind of data is kept.” [doc-id]</pre>
+<p><span class="label">Retrieved docs:</span> architecture-overview</p>
+<p><span class="label">Judge:</span> score 1 - The response fails to provide the specific duration (7 years) requested and instead offers a generic statement about the policy&#39;s existence.</p>
+<p><span class="label">Failed scorers:</span> exact, judge, retrieval, quote</p>
+</div>
+
+<div class="failure">
+<h3>q29</h3>
+<p><span class="label">Question:</span> How long are backups of the core database kept?</p>
+<p><span class="label">Response:</span></p>
+<pre>Backups are kept for 35 days.
+Quote: “The `core` Postgres database is backed up nightly, and backups are kept for 35 days.” [data-retention]</pre>
+<p><span class="label">Retrieved docs:</span> data-retention</p>
+<p><span class="label">Judge:</span> score 3 - The response correctly states the 35-day retention period but omits the important detail about point-in-time recovery for the last 7 days.</p>
+<p><span class="label">Failed scorers:</span> judge</p>
+</div>
+
+<div class="failure">
+<h3>q33</h3>
+<p><span class="label">Question:</span> What&#39;s the per diem for international travel?</p>
+<p><span class="label">Response:</span></p>
+<pre>Employees who live in Duluth don’t get a per diem when working at the Duluth office.
+Quote: “Employees who live in Duluth don’t get a per diem when working at the Duluth office.”</pre>
+<p><span class="label">Retrieved docs:</span> expense-and-travel</p>
+<p><span class="label">Judge:</span> score 1 - The response discusses a specific local exception for Duluth employees and fails to provide the requested international travel per diem amount.</p>
+<p><span class="label">Failed scorers:</span> exact, judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q34</h3>
+<p><span class="label">Question:</span> Who needs to approve a $2,000 expense?</p>
+<p><span class="label">Response:</span></p>
+<pre>The provided context does not contain the answer.</pre>
+<p><span class="label">Retrieved docs:</span> runbook-ingest-backlog</p>
+<p><span class="label">Judge:</span> score 1 - The model failed to provide the correct answer and incorrectly stated that the context did not contain the information.</p>
+<p><span class="label">Failed scorers:</span> exact, judge, retrieval</p>
+</div>
+
+<div class="failure">
+<h3>q36</h3>
+<p><span class="label">Question:</span> I&#39;m scheduled for on-call during my vacation. What do I need to do?</p>
+<p><span class="label">Response:</span></p>
+<pre>Quote: “The Time Off and Leave policy sets how much notice you need to give.” [oncall-policy]</pre>
+<p><span class="label">Retrieved docs:</span> oncall-policy</p>
+<p><span class="label">Judge:</span> score 1 - The response provides a vague reference to a policy instead of the specific actions (arranging a swap and recording it in Klaxon) required by the reference answer.</p>
+<p><span class="label">Failed scorers:</span> exact, judge, retrieval</p>
+</div>
+
+<div class="failure">
+<h3>q38</h3>
+<p><span class="label">Question:</span> A customer says an excursion alert was a false alarm. How does support handle it?</p>
+<p><span class="label">Response:</span></p>
+<pre>Tier 2 pulls the shipment’s raw readings and the tag’s calibration certificate.
+Quote: &#34;When a customer says an excursion alert was a false alarm, Tier 2 pulls the shipment’s raw readings and the tag’s calibration certificate.&#34;</pre>
+<p><span class="label">Retrieved docs:</span> customer-support-escalation</p>
+<p><span class="label">Judge:</span> score 3 - The response correctly identifies the initial action (pulling readings and certificate) but omits the critical subsequent steps regarding the 12-month calibration cycle and the customer credit policy.</p>
+<p><span class="label">Failed scorers:</span> judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q39</h3>
+<p><span class="label">Question:</span> Excursion alerts are running 12 minutes late for one customer, and it&#39;s during the quarterly freeze. Who can approve a hotfix?</p>
+<p><span class="label">Response:</span></p>
+<pre>The on-call engineering manager and the Head of Platform can approve a hotfix.
+Quote: “A hotfix during a freeze needs approval from both the on-call engineering manager and the Head of Platform.” [deploy-process]</pre>
+<p><span class="label">Retrieved docs:</span> deploy-process</p>
+<p><span class="label">Judge:</span> score 1 - The model incorrectly identifies the approvers as the engineering manager and Head of Platform, whereas the reference states the incident commander can approve it alone.</p>
+<p><span class="label">Failed scorers:</span> exact, judge</p>
+</div>
+
+<div class="failure">
+<h3>q40</h3>
+<p><span class="label">Question:</span> If tags on both carriers drop offline, which on-call rotation gets paged and what does it cover?</p>
+<p><span class="label">Response:</span></p>
+<pre>The Platform is paged on-call when tags on both carriers drop offline.
+Quote: &#34;[runbook-tag-offline] 3. If tags on both carriers are dropping, the problem is probably tagbroker rather than the carriers. Page the Platform on-call.&#34;</pre>
+<p><span class="label">Retrieved docs:</span> runbook-tag-offline</p>
+<p><span class="label">Judge:</span> score 3 - The response correctly identifies the Platform team as the on-call rotation but omits the specific components covered (tagbroker, Kafka, databases, deploy pipeline) which are explicitly requested in the question.</p>
+<p><span class="label">Failed scorers:</span> judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q41</h3>
+<p><span class="label">Question:</span> A carrier outage lasted 80 hours. What severity should the incident be?</p>
+<p><span class="label">Response:</span></p>
+<pre>Quote: “A carrier outage only loses data if it lasts longer than 72 hours.” [runbook-tag-offline]</pre>
+<p><span class="label">Retrieved docs:</span> runbook-tag-offline</p>
+<p><span class="label">Judge:</span> score 2 - The response provides the correct threshold (72 hours) but fails to state the required severity (SEV1), which is the direct answer to the question.</p>
+<p><span class="label">Failed scorers:</span> exact, judge</p>
+</div>
+
+<div class="failure">
+<h3>q42</h3>
+<p><span class="label">Question:</span> How long is the record of actions taken with the break-glass account kept?</p>
+<p><span class="label">Response:</span></p>
+<pre>The record of actions taken with the break-glass account is recorded in the audit log, and the person who used it must file a break-glass report within 24 hours.
+Quote: “The person who used it must file a break-glass report within 24 hours.” [doc-id]</pre>
+<p><span class="label">Retrieved docs:</span> access-control</p>
+<p><span class="label">Judge:</span> score 1 - The response fails to provide the specific retention period (400 days) requested in the question and instead provides irrelevant information about reporting deadlines.</p>
+<p><span class="label">Failed scorers:</span> exact, judge, quote</p>
+</div>
+
+<div class="failure">
+<h3>q47</h3>
+<p><span class="label">Question:</span> What&#39;s the procedure for replacing the battery in a Skerrow Tag?</p>
+<p><span class="label">Response:</span></p>
+<pre>Quote: “The Skerrow Tag v3 reports a reading every 90 seconds over LTE-M, works from -40 °C to +70 °C, and its battery lasts about 14 months.” [doc-id]</pre>
+<p><span class="label">Retrieved docs:</span> company-overview</p>
+<p><span class="label">Judge:</span> score 1 - The model invents a confident answer by quoting specific technical details (reporting interval, temperature range) that are not in the provided documents and do not answer the question about battery replacement.</p>
+<p><span class="label">Failed scorers:</span> judge, quote</p>
+</div>
+
+
+</body>
+</html>

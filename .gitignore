@@ -1,0 +1,28 @@
+# uv virtual environment
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Editors
+.vscode/
+.idea/
+
+# Local environment files
+.env
+.env.*
+.direnv
+.envrc
+
+# Personal notes (not for publication); new notes go in notes/
+USER.md
+RESULTS.md
+notes/
+
+# Run artifacts (committed copies live in results/)
+runs/
+
+# Temporary files
+*.log
+*.tmp
