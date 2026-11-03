@@ -1,0 +1,37 @@
+[project]
+name = "harness"
+version = "0.1.0"
+description = "LLM eval harness: exact-match, LLM-as-judge and retrieval scoring against a vLLM endpoint"
+requires-python = ">=3.12,<3.13"
+
+dependencies = [
+    "openai>=1.0",      # OpenAI-compatible client for vLLM and the judge model
+    "pydantic>=2",      # test-case and result schemas
+    "jinja2>=3.1",      # HTML/Markdown report templates
+    "tqdm",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+    "basedpyright",
+]
+deepeval = [
+    "deepeval>=4.3,<5",
+]
+
+[tool.uv]
+# Scripts project, not an installable package.
+package = false
+# Use the Python supplied by nix-shell rather than downloading one.
+python-preference = "only-system"
+
+[tool.ruff.lint]
+extend-select = ["ANN"]
+ignore = ["ANN401"]
+
+[tool.basedpyright]
+typeCheckingMode = "standard"
+venvPath = "."
+venv = ".venv"

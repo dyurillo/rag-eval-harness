@@ -1,0 +1,5 @@
+export UV_PYTHON_DOWNLOADS=never
+dotenv_if_exists .env
+export MODEL_URL="${MODEL_URL:-http://localhost:8001/v1}"
+export JUDGE_URL="${JUDGE_URL:-http://localhost:8000/v1}"
+use nix
