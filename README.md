@@ -1,6 +1,6 @@
 # rag-eval-harness
 
-A small eval harness for a model served by vLLM (any OpenAI-compatible
+A small eval harness for a model served by vLLM (or any OpenAI-compatible
 endpoint) on a local RAG task. It sends the 48 questions of a local dataset
 to the model under test, optionally retrieves context from a 12-document
 corpus with an in-process BM25 retriever, scores the answers with four
